@@ -26,7 +26,7 @@ return {
   window_background_opacity = 1.0,
   window_background_image_hsb = {
     -- Darken the background image by reducing it to 1/3rd
-    brightness = 0.2,
+    brightness = 0.1,
 
     -- You can adjust the hue by scaling its value.
     -- a multiplier of 1.0 leaves the value unchanged.
