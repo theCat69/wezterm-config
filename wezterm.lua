@@ -4,6 +4,8 @@ local act = wezterm.action
 local default_prog
 local set_environment_variables = {}
 
+local dev_path = os.getenv('DEV')
+
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   -- Use OSC 7 as per the above example
   -- this will display, the current time and the current folder
@@ -14,19 +16,20 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   -- use a more ls-like output format for dir
   set_environment_variables['DIRCMD'] = '/d'
   -- And inject clink into the command prompt
-  default_prog = { 'cmd.exe', '/s', '/k', 'c:/dev/terminal/clink/clink_x64.exe', 'inject', '-q' }
+  default_prog = { 'cmd.exe', '/s', '/k', dev_path .. '/terminal/clink/clink_x64.exe', 'inject', '-q', '&&',
+    'doskey', '/macrofile=' .. dev_path .. '/terminal/aliases/dos_macrofile' }
 end
 
 return {
   default_prog = default_prog,
   set_environment_variables = set_environment_variables,
   color_scheme = 'astromouse (terminal.sexy)',
-  default_cwd = os.getenv('DEV'),
-  window_background_image = os.getenv('HOME') .. '/.config/wezterm_assets/wezterm_forest_wallpapper.jpg',
+  default_cwd = dev_path,
+  window_background_image = os.getenv('HOME') .. '/.config/wezterm_assets/firewatch-dark-version-wallpaper.jpg',
   window_background_opacity = 1.0,
   window_background_image_hsb = {
     -- Darken the background image by reducing it to 1/3rd
-    brightness = 0.1,
+    brightness = 0.3,
 
     -- You can adjust the hue by scaling its value.
     -- a multiplier of 1.0 leaves the value unchanged.
@@ -55,6 +58,14 @@ return {
       key = 'j',
       mods = 'SHIFT|ALT',
       action = act.ActivatePaneDirection 'Down',
+    },
+    {
+      key = 'l',
+      mods = 'CTRL|SHIFT|ALT',
+      action = wezterm.action.SplitPane {
+        direction = 'Left',
+        size = { Percent = 50 },
+      }
     },
     {
       key = 'j',
