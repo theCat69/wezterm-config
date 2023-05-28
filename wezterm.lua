@@ -87,8 +87,7 @@ return {
     {
       key = 'DownArrow',
       mods = 'SHIFT|CTRL',
-      action = act.SplitPane { command = { domain = 'CurrentPaneDomain' }, direction =
-      'Down' }
+      action = act.SplitPane { command = { domain = 'CurrentPaneDomain' }, direction = 'Down', size = { Percent = 30 } }
     },
 
     { key = 'DownArrow', mods = 'SHIFT|ALT|CTRL', action = act.AdjustPaneSize { 'Down', 1 } },
