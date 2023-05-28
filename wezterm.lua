@@ -97,6 +97,8 @@ return {
     { key = 'Paste',     mods = 'NONE',           action = act.PasteFrom 'Clipboard' },
   },
   key_tables = {
+    -- i never use copy mode but i keep all the key mapping here in case i wanted to
+    -- experience it one day
     copy_mode = {
       { key = 'Tab',    mods = 'NONE',  action = act.CopyMode 'MoveForwardWord' },
       { key = 'Tab',    mods = 'SHIFT', action = act.CopyMode 'MoveBackwardWord' },
@@ -166,7 +168,7 @@ return {
       { key = 'UpArrow',    mods = 'NONE', action = act.CopyMode 'MoveUp' },
       { key = 'DownArrow',  mods = 'NONE', action = act.CopyMode 'MoveDown' },
     },
-
+    -- i never use search_mode ever so same here ...
     search_mode = {
       { key = 'Enter',     mods = 'NONE', action = act.CopyMode 'PriorMatch' },
       { key = 'Escape',    mods = 'NONE', action = act.CopyMode 'Close' },
