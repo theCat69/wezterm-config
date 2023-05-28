@@ -40,13 +40,19 @@ return {
   },
   disable_default_key_bindings = true,
   keys = {
-    { key = 'Tab',       mods = 'CTRL',           action = act.ActivateTabRelative(1) },
-    { key = 'Tab',       mods = 'SHIFT|CTRL',     action = act.ActivateTabRelative(-1) },
+    { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
+    { key = 'Tab', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(-1) },
+    {
+      key = 'g',
+      mods = 'SHIFT|CTRL',
+      action = wezterm.action.SpawnCommandInNewTab {
+        args = { 'gbb', 'ui' },
+      },
+    },
     { key = 't',         mods = 'SHIFT|CTRL',     action = act.SpawnTab 'CurrentPaneDomain' },
     { key = '+',         mods = 'SHIFT|CTRL',     action = act.IncreaseFontSize },
     { key = '-',         mods = 'SHIFT|CTRL',     action = act.DecreaseFontSize },
     { key = '0',         mods = 'SHIFT|CTRL',     action = act.ResetFontSize },
-    { key = 'c',         mods = 'CTRL',           action = act.CopyTo 'Clipboard' },
     { key = 'C',         mods = 'SHIFT|CTRL',     action = act.CopyTo 'Clipboard' },
     { key = 'F',         mods = 'SHIFT|CTRL',     action = act.Search 'CurrentSelectionOrEmptyString' },
     { key = 'P',         mods = 'SHIFT|CTRL',     action = act.ActivateCommandPalette },
