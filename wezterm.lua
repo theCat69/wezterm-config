@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
-local default_prog
+local default_prog = {}
 local set_environment_variables = {}
 
 local dev_path = os.getenv('DEV')
@@ -26,6 +26,7 @@ return {
   color_scheme = 'astromouse (terminal.sexy)',
   default_cwd = dev_path,
   window_background_image = os.getenv('HOME') .. '/.config/wezterm_assets/firewatch-dark-version-wallpaper.jpg',
+  hide_tab_bar_if_only_one_tab = true,
   window_background_opacity = 1.0,
   window_background_image_hsb = {
     -- Darken the background image by reducing it to 1/3rd
@@ -42,6 +43,9 @@ return {
   keys = {
     { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
     { key = 'Tab', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(-1) },
+    -- This use external application comment it if not needed
+    -- This is a git command wrapper i made in rust : https://github.com/theCat69/git-but-better
+    -- It use gitui another project made with rust (but not by me) : https://github.com/extrawurst/gitui
     {
       key = 'g',
       mods = 'SHIFT|CTRL',
@@ -49,6 +53,43 @@ return {
         args = { 'gbb', 'ui' },
       },
     },
+    {
+      key = '1',
+      mods = 'SHIFT|CTRL',
+      action = wezterm.action.SpawnCommandInNewTab {
+        label = 'Java 11',
+        args = { 'bf-j-vm', 's', '11', '-l', '&&', table.unpack(default_prog) },
+      },
+    },
+    {
+      key = '7',
+      mods = 'SHIFT|CTRL',
+      action = wezterm.action.SpawnCommandInNewTab {
+        label = 'Java 17',
+        args = { 'bf-j-vm', 's', '17', '-l', '&&', table.unpack(default_prog) },
+      },
+    },
+    -- {
+    --   key = 'j',
+    --   mods = 'SHIFT|CTRL',
+    --   action = wezterm.action.SpawnCommandInNewTab {
+    --     domain = 'CurrentPaneDomain',
+    --     args = { 'doskey', 'java=' .. os.getenv('JAVA_HOME_JDK11') .. '/bin/java', '$*' },
+    --   }
+    -- },
+    -- {
+    --   key = 'j',
+    --   mods = 'SHIFT|CTRL',
+    --   action = wezterm.action.SpawnCommandInNewTab {
+    --     domain = 'CurrentPaneDomain',
+    --     args = { 'cmd', 'set', 'SOMETHING=Value', 'cmd', '/k' }
+    --     set_environment_variables = {
+    --       SOMETHING = 'a value',
+    --     },
+    --   }
+    -- },
+    { key = 'U',         mods = 'CTRL',           action = act.ScrollByPage(-1) },
+    { key = 'D',         mods = 'CTRL',           action = act.ScrollByPage(1) },
     { key = 't',         mods = 'SHIFT|CTRL',     action = act.SpawnTab 'CurrentPaneDomain' },
     { key = '+',         mods = 'SHIFT|CTRL',     action = act.IncreaseFontSize },
     { key = '-',         mods = 'SHIFT|CTRL',     action = act.DecreaseFontSize },
