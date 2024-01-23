@@ -23,6 +23,13 @@ end
 return {
   default_prog = default_prog,
   set_environment_variables = set_environment_variables,
+  font = wezterm.font_with_fallback {
+    { family = 'JetBrains Mono', weight = 'Bold' },
+    'Nerd Font Symbols',
+    'Noto Color Emoji',
+    'Nerd Font Mono',
+  },
+  font_dirs = { 'fonts' },
   color_scheme = 'astromouse (terminal.sexy)',
   default_cwd = dev_path,
   window_background_image = os.getenv('HOME') .. '/.config/wezterm_assets/firewatch-dark-version-wallpaper.jpg',
@@ -58,7 +65,7 @@ return {
       mods = 'SHIFT|CTRL',
       action = wezterm.action.SpawnCommandInNewTab {
         label = 'Java 11',
-        args = { 'bf-j-vm', 's', '11', '-l', '&&', table.unpack(default_prog) },
+        args = { 'bf-j-vm', 'j', 's', '11', '-l', '&&', table.unpack(default_prog) },
       },
     },
     {
@@ -66,28 +73,17 @@ return {
       mods = 'SHIFT|CTRL',
       action = wezterm.action.SpawnCommandInNewTab {
         label = 'Java 17',
-        args = { 'bf-j-vm', 's', '17', '-l', '&&', table.unpack(default_prog) },
+        args = { 'bf-j-vm', 'j', 's', '17', '-l', '&&', table.unpack(default_prog) },
       },
     },
-    -- {
-    --   key = 'j',
-    --   mods = 'SHIFT|CTRL',
-    --   action = wezterm.action.SpawnCommandInNewTab {
-    --     domain = 'CurrentPaneDomain',
-    --     args = { 'doskey', 'java=' .. os.getenv('JAVA_HOME_JDK11') .. '/bin/java', '$*' },
-    --   }
-    -- },
-    -- {
-    --   key = 'j',
-    --   mods = 'SHIFT|CTRL',
-    --   action = wezterm.action.SpawnCommandInNewTab {
-    --     domain = 'CurrentPaneDomain',
-    --     args = { 'cmd', 'set', 'SOMETHING=Value', 'cmd', '/k' }
-    --     set_environment_variables = {
-    --       SOMETHING = 'a value',
-    --     },
-    --   }
-    -- },
+    {
+      key = '2',
+      mods = 'SHIFT|CTRL',
+      action = wezterm.action.SpawnCommandInNewTab {
+        label = 'Java 21',
+        args = { 'bf-j-vm', 'j', 's', '21', '-l', '&&', table.unpack(default_prog) },
+      },
+    },
     { key = 'U',         mods = 'CTRL',           action = act.ScrollByPage(-1) },
     { key = 'D',         mods = 'CTRL',           action = act.ScrollByPage(1) },
     { key = 't',         mods = 'SHIFT|CTRL',     action = act.SpawnTab 'CurrentPaneDomain' },
