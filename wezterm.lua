@@ -28,7 +28,7 @@ else
         ':' .. os.getenv('HOME') .. '/dev/terminal/git-but-better/target/release'
   }
 
-  default_prog = { 'bash', '-l' }
+  default_prog = { 'fish', '-l' }
 end
 
 
