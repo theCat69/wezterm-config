@@ -22,7 +22,6 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
     'doskey', '/macrofile=' .. dev_path .. '/terminal/aliases/dos_macrofile' }
 else
   set_environment_variables = {
-    prompt = '$E]7;file://localhost/$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ',
     PATH = os.getenv('PATH') ..
         ':' .. os.getenv('HOME') .. '/dev/terminal/gitui/target/release' ..
         ':' .. os.getenv('HOME') .. '/dev/terminal/git-but-better/target/release'
