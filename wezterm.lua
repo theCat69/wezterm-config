@@ -8,11 +8,6 @@ local dev_path = os.getenv('DEV')
 
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   set_environment_variables = {
-    -- Use OSC 7 as per the above example
-    -- this will display, the current time and the current folder
-    -- Don't use only this because it will be ugly
-    -- The rest of the prompt variable enhancement is in clink configuration (for git and the rest of the sentence)
-    prompt = '$E]7;file://localhost/$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m',
     -- use a more ls-like output format for dir
     DIRCMD = '/d'
   }
@@ -20,7 +15,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   -- And inject clink into the command prompt
   default_prog = { 'cmd.exe', '/s', '/k', dev_path .. '/terminal/clink/clink_x64.exe', 'inject', '-q', '&&',
     'doskey', '/macrofile=' .. dev_path .. '/.dotfiles/.config/clink/dos_macrofile' }
-else
+else -- Assuming linux environment
   set_environment_variables = {
     PATH = os.getenv('PATH') ..
         ':' .. os.getenv('HOME') .. '/dev/terminal/gitui/target/release' ..
