@@ -19,7 +19,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
 
   -- And inject clink into the command prompt
   default_prog = { 'cmd.exe', '/s', '/k', dev_path .. '/terminal/clink/clink_x64.exe', 'inject', '-q', '&&',
-    'doskey', '/macrofile=' .. dev_path .. '/terminal/aliases/dos_macrofile' }
+    'doskey', '/macrofile=' .. dev_path .. '/.dotfiles/.config/clink/dos_macrofile' }
 else
   set_environment_variables = {
     PATH = os.getenv('PATH') ..
