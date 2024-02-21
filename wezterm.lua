@@ -22,7 +22,7 @@ else -- Assuming linux environment
         ':' .. os.getenv('HOME') .. '/dev/terminal/git-but-better/target/release'
   }
 
-  default_prog = { 'fish', '-l' }
+  default_prog = { 'fish' }
 end
 
 
