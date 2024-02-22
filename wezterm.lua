@@ -63,7 +63,7 @@ return {
       key = 'g',
       mods = 'SHIFT|CTRL',
       action = wezterm.action.SpawnCommandInNewTab {
-        args = { 'gbb', 'ui' },
+        args = { 'gitui' },
       },
     },
     {
