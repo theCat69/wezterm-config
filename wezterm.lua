@@ -37,22 +37,23 @@ return {
     'Nerd Font Mono',
   },
   font_dirs = { 'fonts' },
-  color_scheme = 'astromouse (terminal.sexy)',
+  color_scheme = 'AtomOneLight',
+  -- color_scheme = 'astromouse (terminal.sexy)',
   default_cwd = dev_path,
-  window_background_image = os.getenv('HOME') .. '/.config/wezterm/wezterm_assets/firewatch-dark-version-wallpaper.jpg',
+  -- window_background_image = os.getenv('HOME') .. '/.config/wezterm/wezterm_assets/lampadere.jpg',
   hide_tab_bar_if_only_one_tab = true,
   window_background_opacity = 1.0,
-  window_background_image_hsb = {
-    -- Darken the background image by reducing it to 1/3rd
-    brightness = 0.3,
-
-    -- You can adjust the hue by scaling its value.
-    -- a multiplier of 1.0 leaves the value unchanged.
-    hue = 1.0,
-
-    -- You can adjust the saturation also.
-    saturation = 1.0,
-  },
+  -- window_background_image_hsb = {
+  --   -- Darken the background image by reducing it to 1/3rd
+  --   brightness = 0.3,
+  --
+  --   -- You can adjust the hue by scaling its value.
+  --   -- a multiplier of 1.0 leaves the value unchanged.
+  --   hue = 1.0,
+  --
+  --   -- You can adjust the saturation also.
+  --   saturation = 1.0,
+  -- },
   disable_default_key_bindings = true,
   keys = {
     { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
