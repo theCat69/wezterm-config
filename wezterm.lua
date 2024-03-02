@@ -36,6 +36,7 @@ return {
     'Noto Color Emoji',
     'Nerd Font Mono',
   },
+  font_size = 13,
   font_dirs = { 'fonts' },
   color_scheme = 'AtomOneLight',
   -- color_scheme = 'astromouse (terminal.sexy)',
