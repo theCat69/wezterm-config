@@ -53,10 +53,10 @@ return {
   -- I don't like putting anything at the ege if I can help it.
   enable_scroll_bar = false,
   window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
+    left = 5,
+    right = 5,
+    top = 5,
+    bottom = 5,
   },
   freetype_load_target = "HorizontalLcd",
   -- this was use for the original dark theme
