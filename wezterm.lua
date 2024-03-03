@@ -40,11 +40,26 @@ return {
   font_dirs = { 'fonts' },
   -- color_scheme = 'AtomOneLight',
   color_scheme = 'Github (base16)',
+  -- this was use for the original dark theme
   -- color_scheme = 'astromouse (terminal.sexy)',
   default_cwd = dev_path,
+  -- this was use for the original dark theme
   -- window_background_image = os.getenv('HOME') .. '/.config/wezterm/wezterm_assets/lampadere.jpg',
   hide_tab_bar_if_only_one_tab = true,
   window_background_opacity = 1.0,
+  -- default is true, has more "native" look
+  use_fancy_tab_bar = false,
+
+  -- I don't like putting anything at the ege if I can help it.
+  enable_scroll_bar = false,
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
+  freetype_load_target = "HorizontalLcd",
+  -- this was use for the original dark theme
   -- window_background_image_hsb = {
   --   -- Darken the background image by reducing it to 1/3rd
   --   brightness = 0.3,
@@ -60,9 +75,6 @@ return {
   keys = {
     { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
     { key = 'Tab', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(-1) },
-    -- This use external application comment it if not needed
-    -- This is a git command wrapper i made in rust : https://github.com/theCat69/git-but-better
-    -- It use gitui another project made with rust (but not by me) : https://github.com/extrawurst/gitui
     {
       key = 'g',
       mods = 'SHIFT|CTRL',
