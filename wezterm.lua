@@ -1,35 +1,31 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
-local default_prog = {}
-local set_environment_variables = {}
-
 local dev_path = os.getenv('DEV')
 local dot_files = os.getenv('DOTFILES')
 
-if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-  set_environment_variables = {
-    -- use a more ls-like output format for dir
-    DIRCMD = '/d'
-  }
+-- go at bottom of the file to change theme
+local light_theme = {
+  color_scheme = 'Github (base16)',
+}
 
-  -- And inject clink into the command prompt
-  default_prog = { 'cmd.exe', '/s', '/k', dev_path .. '/terminal/clink/clink_x64.exe', 'inject', '-q', '&&',
-    'doskey', '/macrofile=' .. dot_files .. '/.config/clink/dos_macrofile' }
-else -- Assuming linux environment
-  set_environment_variables = {
-    PATH = os.getenv('PATH') ..
-        ':' .. os.getenv('HOME') .. '/dev/terminal/gitui/target/release' ..
-        ':' .. os.getenv('HOME') .. '/dev/terminal/git-but-better/target/release'
-  }
+local dark_theme = {
+  color_scheme = 'astromouse (terminal.sexy)',
+  window_background_image_hsb = {
+    -- Darken the background image by reducing it to 1/3rd
+    brightness = 0.3,
 
-  default_prog = { 'fish' }
-end
+    -- You can adjust the hue by scaling its value.
+    -- a multiplier of 1.0 leaves the value unchanged.
+    hue = 1.0,
 
+    -- You can adjust the saturation also.
+    saturation = 1.0,
+  },
+  window_background_image = os.getenv('HOME') .. '/.config/wezterm/wezterm_assets/lampadere.jpg',
+}
 
-return {
-  default_prog = default_prog,
-  set_environment_variables = set_environment_variables,
+local fonts = {
   font = wezterm.font_with_fallback {
     { family = 'JetBrains Mono', weight = 'Bold' },
     'Nerd Font Symbols',
@@ -38,13 +34,10 @@ return {
   },
   font_size = 13,
   font_dirs = { 'fonts' },
-  -- color_scheme = 'AtomOneLight',
-  color_scheme = 'Github (base16)',
+}
+
+local ui = {
   -- this was use for the original dark theme
-  -- color_scheme = 'astromouse (terminal.sexy)',
-  default_cwd = dev_path,
-  -- this was use for the original dark theme
-  -- window_background_image = os.getenv('HOME') .. '/.config/wezterm/wezterm_assets/lampadere.jpg',
   hide_tab_bar_if_only_one_tab = true,
   window_background_opacity = 1.0,
   -- default is true, has more "native" look
@@ -59,18 +52,35 @@ return {
     bottom = 5,
   },
   freetype_load_target = "HorizontalLcd",
-  -- this was use for the original dark theme
-  -- window_background_image_hsb = {
-  --   -- Darken the background image by reducing it to 1/3rd
-  --   brightness = 0.3,
-  --
-  --   -- You can adjust the hue by scaling its value.
-  --   -- a multiplier of 1.0 leaves the value unchanged.
-  --   hue = 1.0,
-  --
-  --   -- You can adjust the saturation also.
-  --   saturation = 1.0,
-  -- },
+}
+
+local default_prog = {}
+local set_environment_variables = {}
+
+if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+  set_environment_variables = {
+    -- use a more ls-like output format for dir
+    DIRCMD = '/d'
+  }
+  -- And inject clink into the command prompt
+  default_prog = { 'cmd.exe', '/s', '/k', dev_path .. '/terminal/clink/clink_x64.exe', 'inject', '-q', '&&',
+    'doskey', '/macrofile=' .. dot_files .. '/.config/clink/dos_macrofile' }
+else -- Assuming linux environment
+  set_environment_variables = {
+    PATH = os.getenv('PATH') ..
+        ':' .. os.getenv('HOME') .. '/dev/terminal/gitui/target/release' ..
+        ':' .. os.getenv('HOME') .. '/dev/terminal/git-but-better/target/release'
+  }
+  default_prog = { 'fish' }
+end
+
+local env_config = {
+  set_environment_variables = set_environment_variables,
+  default_prog = default_prog,
+  default_cwd = dev_path
+}
+
+local key_config = {
   disable_default_key_bindings = true,
   keys = {
     { key = 'Tab', mods = 'CTRL',       action = act.ActivateTabRelative(1) },
@@ -241,3 +251,40 @@ return {
     },
   },
 }
+
+local function table_merge(t1, t2)
+  for k, v in pairs(t2) do
+    if type(v) == "table" then
+      if type(t1[k] or false) == "table" then
+        table_merge(t1[k] or {}, t2[k] or {})
+      else
+        t1[k] = v
+      end
+    else
+      t1[k] = v
+    end
+  end
+  return t1
+end
+
+local config = {}
+
+local register_config = function(...)
+  for _, conf in ipairs({ ... }) do
+    table_merge(config, conf)
+  end
+end
+
+-- switch to dark theme using OS_THEME env variable
+local os_theme = os.getenv('OS_THEME')
+local theme = {}
+
+if os_theme == 'dark' or os_theme == 'DARK' or os_theme == 'Dark' then
+  theme = dark_theme
+else
+  theme = light_theme
+end
+
+register_config(theme, fonts, ui, env_config, key_config)
+
+return config
