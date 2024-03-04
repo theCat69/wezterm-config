@@ -1,0 +1,3 @@
+[submodule "lua-config-common"]
+	path = lua-config-common
+	url = https://github.com/theCat69/lua-config-common
