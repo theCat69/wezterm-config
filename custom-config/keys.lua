@@ -4,6 +4,7 @@ local act = wezterm.action
 
 local M = {}
 
+-- i need to fix adjust pane size because those keys are already used on ubuntu for OS things
 local key_config = {
   disable_default_key_bindings = true,
   keys = {
