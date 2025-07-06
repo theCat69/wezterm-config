@@ -38,7 +38,7 @@ local fonts = {
     { family = 'JetBrains Mono', weight = 'Bold' },
     'Nerd Font Symbols',
     'Noto Color Emoji',
-    'Nerd Font Mono',
+    'Symbols Nerd Font Mono',
   },
   font_size = 13,
   font_dirs = { 'fonts' },

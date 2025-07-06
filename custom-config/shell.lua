@@ -17,12 +17,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   default_prog = { 'cmd.exe', '/s', '/k', dev_path .. '/terminal/clink/clink_x64.exe', 'inject', '-q', '&&',
     'doskey', '/macrofile=' .. dot_files .. '/.config/clink/dos_macrofile' }
 else -- Assuming linux environment
-  set_environment_variables = {
-    PATH = os.getenv('PATH') ..
-        ':' .. os.getenv('HOME') .. '/dev/terminal/gitui/target/release' ..
-        ':' .. os.getenv('HOME') .. '/dev/terminal/git-but-better/target/release'
-  }
-  default_prog = { 'fish' }
+  set_environment_variables = {}
 end
 
 local shell_config = {

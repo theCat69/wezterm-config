@@ -4,6 +4,15 @@ local act = wezterm.action
 
 local M = {}
 
+-- local domains = wezterm.mux.all_domains()
+-- for i, v in pairs(domains) do
+--   print(i, v)
+--   local domain = wezterm.mux.get_domain(i)
+--   if domain ~= nil then
+--     print(domain:name())
+--   end
+-- end
+
 -- i need to fix adjust pane size because those keys are already used on ubuntu for OS things
 local key_config = {
   disable_default_key_bindings = true,
@@ -13,37 +22,38 @@ local key_config = {
     {
       key = 'g',
       mods = 'SHIFT|CTRL',
-      action = wezterm.action.SpawnCommandInNewTab {
+      action = act.SpawnCommandInNewTab {
         args = { 'gitui' },
-      },
-    },
-    {
-      key = '1',
-      mods = 'SHIFT|CTRL',
-      action = wezterm.action.SpawnCommandInNewTab {
-        label = 'Java 11',
-        args = { 'bf-j-vm', 'j', 's', '11', '-l', '&&', table.unpack(shell.default_prog) },
-      },
-    },
-    {
-      key = '7',
-      mods = 'SHIFT|CTRL',
-      action = wezterm.action.SpawnCommandInNewTab {
-        label = 'Java 17',
-        args = { 'bf-j-vm', 'j', 's', '17', '-l', '&&', table.unpack(shell.default_prog) },
       },
     },
     {
       key = '2',
       mods = 'SHIFT|CTRL',
-      action = wezterm.action.SpawnCommandInNewTab {
+      action = act.SpawnCommandInNewTab {
         label = 'Java 21',
         args = { 'bf-j-vm', 'j', 's', '21', '-l', '&&', table.unpack(shell.default_prog) },
       },
     },
-    { key = 'U',         mods = 'CTRL',           action = act.ScrollByPage(-1) },
-    { key = 'D',         mods = 'CTRL',           action = act.ScrollByPage(1) },
-    { key = 't',         mods = 'SHIFT|CTRL',     action = act.SpawnTab 'CurrentPaneDomain' },
+    { key = 'U', mods = 'CTRL',       action = act.ScrollByPage(-1) },
+    { key = 'D', mods = 'CTRL',       action = act.ScrollByPage(1) },
+    { key = 't', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
+    {
+      key = '2',
+      mods = 'SHIFT|CTRL',
+      action = act.SpawnTab 'DefaultDomain',
+    },
+    {
+      key = '3',
+      mods = 'SHIFT|CTRL',
+      action = act.SpawnTab {
+        DomainName = 'WSL:Ubuntu-24.04',
+      },
+    },
+    {
+      key = '1',
+      mods = 'SHIFT|CTRL',
+      action = act.ShowLauncher
+    },
     { key = '+',         mods = 'SHIFT|CTRL',     action = act.IncreaseFontSize },
     { key = '-',         mods = 'SHIFT|CTRL',     action = act.DecreaseFontSize },
     { key = '0',         mods = 'SHIFT|CTRL',     action = act.ResetFontSize },
